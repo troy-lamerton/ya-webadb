@@ -55,22 +55,14 @@ function App(): JSX.Element | null {
 
 
     const appId = new URLSearchParams(window.location.search).get('appId')
-
-    const routes = useMemo((): RouteInfo[] => [
+    
+    const hiddenRoutes = useMemo((): RouteInfo[] => [
         {
             path: '/',
             exact: true,
             name: 'Introduction',
             children: (
                 <Intro />
-            )
-        },
-        {
-            path: '/logs',
-            exact: true,
-            name: 'Logs',
-            children: (
-                <Logcat device={device} applicationId={appId} />
             )
         },
         {
@@ -95,13 +87,6 @@ function App(): JSX.Element | null {
             ),
         },
         {
-            path: '/file-manager',
-            name: 'File Manager',
-            children: (
-                <FileManager device={device} />
-            ),
-        },
-        {
             path: '/install',
             name: 'Install APK',
             children: (
@@ -113,6 +98,24 @@ function App(): JSX.Element | null {
             name: 'Screen Capture',
             children: (
                 <FrameBuffer device={device} />
+            ),
+        },
+    ], [device]);
+
+    const routes = useMemo((): RouteInfo[] => [
+        {
+            path: '/logs',
+            exact: true,
+            name: 'Logs',
+            children: (
+                <Logcat device={device} applicationId={appId} />
+            )
+        },
+        {
+            path: '/file-manager',
+            name: 'File Manager',
+            children: (
+                <FileManager device={device} />
             ),
         },
         {
