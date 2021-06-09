@@ -55,7 +55,7 @@ function App(): JSX.Element | null {
 
 
     const appId = new URLSearchParams(window.location.search).get('appId')
-    
+
     const hiddenRoutes = useMemo((): RouteInfo[] => [
         {
             path: '/',
@@ -112,18 +112,18 @@ function App(): JSX.Element | null {
             )
         },
         {
-            path: '/file-manager',
-            name: 'File Manager',
-            children: (
-                <FileManager device={device} />
-            ),
-        },
-        {
             path: '/scrcpy',
-            name: 'Scrcpy',
+            name: 'Mirror',
             noCache: true,
             children: (
                 <Scrcpy device={device} />
+            ),
+        },
+        {
+            path: '/file-manager',
+            name: 'Files',
+            children: (
+                <FileManager device={device} />
             ),
         },
     ], [device]);
